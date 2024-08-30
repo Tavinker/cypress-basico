@@ -1,0 +1,38 @@
+{
+  "name": "curso-cypress-v2",
+  "version": "1.0.0",
+  "description": "Repositório da versão 2 do curso básico de Cypress da Escola Talking About Testing",
+  "main": "src/index.html",
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:open:1440:resolutionView": "cypress open --config viewportWidth=1440 viewportHeight=900", 
+    "cy:open:1133:resolutionView": "cypress open --config viewportWidth=1133 viewportHeight=800",
+    "cy:open:960:resolutionView": "cypress open --config viewportWidth=960 viewportHeight=667",
+    "cy:open:744:resolutionView": "cypress open --config viewportWidth=744 viewportHeight=667",
+    "cy:open:375:resolutionView": "cypress open --config viewportWidth=375 viewportHeight=667",
+    "test": "cypress run",
+    "cy:open:1440:resolutionView": "cypress run --config viewportWidth=1440 viewportHeight=900", 
+    "cy:open:1133:resolutionView": "cypress run --config viewportWidth=1133 viewportHeight=800",
+    "cy:open:960:resolutionView": "cypress run --config viewportWidth=960 viewportHeight=667",
+    "cy:open:744:resolutionView": "cypress run --config viewportWidth=744 viewportHeight=667",
+    "cy:open:375:resolutionView": "cypress run --config viewportWidth=375 viewportHeight=667"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wlsf82/cypress-basico-v2.git"
+  },
+  "keywords": [
+    "Testing",
+    "Cypress.io",
+    "Talking About Testing",
+    "Cypress Básico",
+    "Escola TAT"
+  ],
+  "author": "Walmyr Filho <wlsf82@gmail.com> (https://walmyr.dev/)",
+  "license": "MIT",
+  "homepage": "https://github.com/wlsf82/cypress-basico-v2#readme",
+  "devDependencies": {
+    "cypress": "^9.5.1",
+    "cypress-file-upload": "^5.0.8"
+  }
+}
