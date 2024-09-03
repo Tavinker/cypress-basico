@@ -1,6 +1,7 @@
 /// <reference types="Cypress" />
 
 describe('Central de Atendimento ao Cliente TAT', function() {
+    const THREE_SECONDS_IN_MS = 3000
     beforeEach(function() {
         cy.visit('./src/index.html')
     })
@@ -300,4 +301,143 @@ describe('Central de Atendimento ao Cliente TAT', function() {
 
 
 
+
+// EXERCÍCIOS SEÇÃO 12
+it('23: testa se as mensagens de sucesso e erro aparecem e que desaparecem após 3 segundos, sem precisar esperar pelos 3 segundos.',function(){
+    
+    //congela o tempo do navegador (ações com tempo determinado não acontecem, ficam congeladas, por exemplo, exibição da mensagem de sucesso/erro)
+    cy.clock()
+
+        //Envia o formulário corretamente e dispara a mensagem de sucesso
+        cy.fillMandatoryFieldsAndSubmit()
+    
+        //Checa se a mensagem de sucesso é exibida
+        cy.get('.success').should('be.visible')
+
+        //Avança 3 segundos no tempo (forço que o tempo do navegador que está congelado, avance 3 segundos manualmente)
+        cy.tick(3000) //basicamente, essa funcionalidade serve para ganhar tempo nos testes. Ao invés de eu esperar 3 segundos pra mensagem desaparecer, eu já forço isso instantaneamente.
+
+        //Checa se a mensagem de sucesso não é mais exibida após 3 segundos
+        cy.get('.success').should('not.be.visible')
+
+        //Preenchendo apenas um dos campos obrigatórios e enviando a requisição, forçando a exibição da mensagem de erro e em seguida, validando se ela aparece
+        cy.get('#firstName').type('Gabriel')
+        cy.contains('button', 'Enviar').click()
+        cy.get('.error').should('be.visible')
+
+        //Avançando 3 segundos no tempo para que a mensagem suma
+        cy.tick(THREE_SECONDS_IN_MS) //aqui to usando uma variavel, mas também poderia colocar o valor em milisegundos manualmente
+
+        //Checa se a mensagem de erro não é mais exibida
+        cy.get('.error').should('not.be.visible')
+
+    })
+
+
+Cypress._.times(5, () => { // Usando Cypress._.times para repetir a verificação várias vezes (por exemplo, 5 vezes). Posso fazer isso pro teste todo ou para algum bloco específico dentro do teste
+    it('24: usando o Cypress._.times() para que o teste se repita 5x, testa se as mensagens de sucesso e erro aparecem e que desaparecem após 3 segundos, sem precisar esperar pelos 3 segundos.',function(){
+    
+        //congela o tempo do navegador (ações com tempo determinado não acontecem, ficam congeladas, por exemplo, exibição da mensagem de sucesso/erro)
+        cy.clock()
+    
+            //Envia o formulário corretamente e dispara a mensagem de sucesso
+            cy.fillMandatoryFieldsAndSubmit()
+        
+            //Checa se a mensagem de sucesso é exibida
+            cy.get('.success').should('be.visible')
+    
+            //Avança 3 segundos no tempo (forço que o tempo do navegador que está congelado, avance 3 segundos manualmente)
+            cy.tick(3000) //basicamente, essa funcionalidade serve para ganhar tempo nos testes. Ao invés de eu esperar 3 segundos pra mensagem desaparecer, eu já forço isso instantaneamente.
+    
+            //Checa se a mensagem de sucesso não é mais exibida após 3 segundos
+            cy.get('.success').should('not.be.visible')
+    
+            //Preenchendo apenas um dos campos obrigatórios e enviando a requisição, forçando a exibição da mensagem de erro e em seguida, validando se ela aparece
+            cy.get('#firstName').type('Gabriel')
+            cy.contains('button', 'Enviar').click()
+            cy.get('.error').should('be.visible')
+    
+            //Avançando 3 segundos no tempo para que a mensagem suma
+            cy.tick(THREE_SECONDS_IN_MS) //aqui to usando uma variavel, mas também poderia colocar o valor em milisegundos manualmente
+    
+            //Checa se a mensagem de erro não é mais exibida
+            cy.get('.error').should('not.be.visible')
+        
+             })
+        })
+
+
+    it('25: usando o Cypress._.repeat() para repetir a string 20x, preencha os campos obrigatorios + text-area, envia o formulário e checa se a mensagem de sucesso aparece', function() {
+        
+        //constante definindo os parâmetros da função "Cypress._.repeat"
+        const repeatText = Cypress._.repeat('0123456789  ', 20); //a função "Cypress._.repeat" define o números de vezes que uma string será repetida em uma campo.
+        
+        //preenchendo normalmente os demais campos obrigatórios
+        cy.get('#firstName').type('Gabriel')
+        cy.get('#lastName').type('Tavares')
+        cy.get('#email').type('gabriel@teste.com')
+
+        //preenchendo o campo text-area utilizando a varíavel contida na função "Cypress._.repeat"
+        cy.get('#open-text-area').type(repeatText, {delay: 0})
+
+        //enviando o formulario
+        cy.contains('button', 'Enviar').click()
+
+        //checando se a mensagem de success aparece!
+        cy.get('.success').should('be.visible')
+    })
+    
+    
+    it('26: exibe e esconde as mensagens de sucesso e erro usando o .invoke', function() {
+        cy.get('.success')
+          .should('not.be.visible')
+          .invoke('show')
+          .should('be.visible')
+          .and('contain', 'Mensagem enviada com sucesso.')
+          .invoke('hide')
+          .should('not.be.visible')
+
+        cy.get('.error')
+          .should('not.be.visible')
+          .invoke('show')
+          .should('be.visible')
+          .and('contain', 'Valide os campos obrigatórios!')
+          .invoke('hide')
+          .should('not.be.visible')
+      })
+
+
+      it('27: preenche a area de texto usando o comando invoke', function() {
+        const invokeValue = Cypress._.repeat('Preenchendo campo de texto através do .invoke ', 5) //definindo o valor do invoke através de variável "invokeValue" e ao mesmo tempo usando o ".repeat" para repetir esse valor no campo de texto, para dar volume de texto no campo.
+        //o invoke é como se fosse um CTRL + V, serve para dar velocidade no preenchimento de campos (input ou textarea).
+
+        cy.get('#firstName').type('Gabriel')
+        cy.get('#lastName').type('Tavares')
+        cy.get('#email').type('gabriel@teste.com')
+
+        cy.get('#open-text-area').invoke('text', invokeValue) //usando variável "invokeValue" para preencher o campo de texto com um valor pré-definido
+        .should('have.text', invokeValue) //checando se o campo possui o valor que está na variável "invokeValue"
+      })
+
+
+      it('28: faz uma requisição HTTP', function() {
+        
+        //Pode ser feito dessa forma (como eu fiz)
+        //cy.request('https://cac-tat.s3.eu-central-1.amazonaws.com/index.html')
+            //.then((response) => {
+            //    expect(response.status).to.equal(200);
+            //    expect(response.statusText).to.equal('OK');
+            //    expect(response.body).to.include('CAC TAT')
+            //})
+
+        //Ou pode ser feito assim (feito pelo professor)
+        cy.request('https://cac-tat.s3.eu-central-1.amazonaws.com/index.html')
+            .should(function(response) {
+                //console.log() -- visualizando o que vem na request no browser
+                const { status, statusText, body } = response //desestruturando um objeto em javaScript
+                expect(response.status).to.equal(200);
+                expect(response.statusText).to.equal('OK');
+                expect(response.body).to.include('CAC TAT')
+            })
+    })   
 })

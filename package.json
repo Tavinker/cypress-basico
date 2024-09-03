@@ -11,11 +11,11 @@
     "cy:open:744:resolutionView": "cypress open --config viewportWidth=744 viewportHeight=667",
     "cy:open:375:resolutionView": "cypress open --config viewportWidth=375 viewportHeight=667",
     "test": "cypress run",
-    "cy:open:1440:resolutionView": "cypress run --config viewportWidth=1440 viewportHeight=900", 
-    "cy:open:1133:resolutionView": "cypress run --config viewportWidth=1133 viewportHeight=800",
-    "cy:open:960:resolutionView": "cypress run --config viewportWidth=960 viewportHeight=667",
-    "cy:open:744:resolutionView": "cypress run --config viewportWidth=744 viewportHeight=667",
-    "cy:open:375:resolutionView": "cypress run --config viewportWidth=375 viewportHeight=667"
+    "cy:test:1440:resolutionView": "cypress run --config viewportWidth=1440 viewportHeight=900", 
+    "cy:test:1133:resolutionView": "cypress run --config viewportWidth=1133 viewportHeight=800",
+    "cy:test:960:resolutionView": "cypress run --config viewportWidth=960 viewportHeight=667",
+    "cy:test:744:resolutionView": "cypress run --config viewportWidth=744 viewportHeight=667",
+    "cy:test:375:resolutionView": "cypress run --config viewportWidth=375 viewportHeight=667"
   },
   "repository": {
     "type": "git",
