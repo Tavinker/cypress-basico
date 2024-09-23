@@ -439,5 +439,16 @@ Cypress._.times(5, () => { // Usando Cypress._.times para repetir a verificaçã
                 expect(response.statusText).to.equal('OK');
                 expect(response.body).to.include('CAC TAT')
             })
-    })   
+    })
+    
+    
+    it('29: encontra o gato escondido', function (){
+        cy.get('#cat')
+            .invoke('show')
+            .should('be.visible')
+        cy.get('#title')
+            .invoke('text', 'CAT TAT')
+        cy.get('#subtitle')
+            .invoke('text', 'Eu 💚 gatos!')
+    })
 })
